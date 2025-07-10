@@ -29,10 +29,12 @@ Preferred communication style: Simple, everyday language.
 ## Key Components
 
 ### Authentication System
-- **Login Method**: Calculator-style interface where users enter access codes
-- **Access Codes**: Simple numeric codes stored in database (1234, 5678, 9999, 0000)
+- **Login Method**: Full-featured calculator interface that doubles as secure login
+- **Access Codes**: Demo codes (1234, 5678, 9999, 0000, 1111, 2222) stored in database
+- **Calculator Functionality**: Complete mathematical operations (+, -, ×, ÷, AC, backspace)
+- **Smart Detection**: Automatically detects valid access codes vs mathematical expressions
 - **Session Management**: Server-side sessions with user ID storage
-- **Error Handling**: Generic error messages maintaining calculator appearance
+- **Disguised Access**: Appears as genuine calculator, provides secret access when correct codes entered
 
 ### Chat System
 - **Real-time Updates**: Polling-based message refresh (3-second intervals)
@@ -107,11 +109,11 @@ Preferred communication style: Simple, everyday language.
 - **Security**: Generic error messages prevent information leakage
 - **UX**: Smooth animations and visual feedback
 
-### Memory Storage for Development
-- **Current**: In-memory user and message storage
-- **Future**: Will be replaced with PostgreSQL in production
-- **Benefit**: Rapid development without database complexity
-- **Limitation**: Data persistence only during server runtime
+### Database Integration
+- **Current**: PostgreSQL with Drizzle ORM for full data persistence
+- **Storage**: All users, messages, calls, and discussions stored in database
+- **Benefit**: Complete data persistence across server restarts
+- **Performance**: Neon serverless PostgreSQL for scalable connections
 
 ### Polling vs WebSockets
 - **Choice**: 3-second polling for message updates
