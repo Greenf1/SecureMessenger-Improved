@@ -1,0 +1,54 @@
+Une plateforme comme whatsap 
+### **1. Page de connexion sous forme de calculatrice moderne :**
+
+#### **Interface de la page** :
+
+* **Calculatrice design** : Crée une interface qui ressemble à une calculatrice classique, mais avec une esthétique moderne et épurée.
+
+  * **Écran de la calculatrice** : L'écran affichera ce que l'utilisateur tape comme code. Si le code est incorrect, il affichera juste le **résultat** de l'opération (qui pourrait être un texte comme "Code incorrect" ou une erreur mathématique).
+  * **Clavier** : Le clavier doit afficher les chiffres, ainsi que des boutons pour envoyer (par exemple "Enter") et effacer (par exemple "C" pour Clear).
+  * **Feedback visuel** : Si l'utilisateur entre un mauvais code, l'écran affiche un résultat comme dans une calculatrice ("Erreur", "Code incorrect", etc.), mais sans donner d'informations supplémentaires.
+  * **Animation subtile** : Ajoute une petite animation lorsque le code est erroné, comme un petit mouvement de l'écran ou un son discret, pour le rendre un peu plus interactif.
+
+#### **Fonctionnement :**
+
+* **Entrée du code** :
+
+  * L'utilisateur entre un code sur la calculatrice.
+  * Si le code est incorrect, l'écran n'affiche que le résultat, comme dans une erreur de calcul classique. L'utilisateur peut alors essayer de nouveau.
+  * Si le code est correct, l'utilisateur est redirigé vers son tableau de bord avec toutes les fonctionnalités (chat, vidéo, groupe, etc.).
+
+#### **Exemple d’interface :**
+
+* **Code incorrect** :
+
+  * "Erreur" ou "Code Incorrect" affiché en grand sur l’écran.
+  * En dessous, un bouton "Réessayer" pour entrer un nouveau code.
+* **Code correct** :
+
+  * L'écran de la calculatrice se transforme en une vue de **tableau de bord** et l’utilisateur accède à ses fonctionnalités.
+
+---
+
+### **2. Fonctionnement technique :**
+
+* **Backend** :
+
+  * Lorsqu'un utilisateur entre un code, tu vérifies si ce code correspond à un compte valide dans ta base de données.
+  * Si le code est correct, tu rediriges l'utilisateur vers son tableau de bord, sinon tu lui renvoies une erreur générique (le "résultat" d’une calculatrice).
+* **Frontend** :
+
+  * **React** (ou Vue.js) pour rendre la page dynamique et interactive.
+  * Utiliser **CSS** pour styliser l’interface de la calculatrice moderne, avec des animations fluides et un design épuré.
+* **Validation du code** :
+
+  * Tu peux utiliser **JWT (JSON Web Tokens)** pour la gestion de sessions, ou simplement valider le code via un appel API backend pour vérifier si le code correspond à un utilisateur enregistré.
+  * Pour l'API de vérification, tu pourrais avoir un endpoint comme :
+
+    * `POST /api/login`
+    * Le corps de la requête contiendrait le code entré par l'utilisateur, et le backend vérifierait si c'est correct. Si oui, un token JWT serait retourné pour la session.
+
+#### **Scénarios** :
+
+1. **Code incorrect** : L'API retourne une erreur, et la page de la calculatrice affiche juste le message "Code incorrect" sans aucun autre détail.
+2. **Code correct** : L'API retourne un succès et l'utilisateur est redirigé vers son tableau de bord.
