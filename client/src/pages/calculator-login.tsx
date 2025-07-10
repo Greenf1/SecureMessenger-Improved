@@ -118,56 +118,56 @@ export default function CalculatorLogin({ onLoginSuccess }: CalculatorLoginProps
   const displayText = currentInput || (previousInput && operation ? previousInput + operation : "0");
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-black via-gray-900 to-gray-800 flex flex-col overflow-hidden">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex flex-col overflow-hidden">
       {/* Modern Calculator Header */}
-      <div className="flex items-center justify-between p-6 bg-black/20 backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-          <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-          <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+      <div className="flex items-center justify-between p-8 bg-black/10 backdrop-blur-xl border-b border-white/10">
+        <div className="flex items-center gap-4">
+          <div className="w-5 h-5 bg-red-500 rounded-full shadow-lg"></div>
+          <div className="w-5 h-5 bg-yellow-400 rounded-full shadow-lg"></div>
+          <div className="w-5 h-5 bg-green-500 rounded-full shadow-lg"></div>
         </div>
-        <div className="text-white/60 text-sm font-medium">Calculatrice</div>
-        <div className="w-12"></div>
+        <div className="text-white/80 text-lg font-medium tracking-wide">Calculatrice Pro</div>
+        <div className="w-16"></div>
       </div>
 
       {/* Calculator Body */}
-      <div className="flex-1 flex flex-col p-8 pt-4">
+      <div className="flex-1 flex flex-col p-12 pt-8 max-w-lg mx-auto w-full">
         {/* Display Area */}
         <motion.div
-          className="bg-gradient-to-br from-gray-900 to-black rounded-3xl p-8 mb-8 border border-gray-700/50 shadow-2xl"
+          className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-[2rem] p-10 mb-12 border border-white/20 shadow-2xl backdrop-blur-lg"
           animate={isShaking ? { x: [-5, 5, -5, 5, 0] } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="text-right text-white font-mono text-5xl min-h-[80px] flex items-center justify-end">
-            <span className="truncate drop-shadow-lg">{displayText}</span>
+          <div className="text-right text-white font-mono text-6xl min-h-[100px] flex items-center justify-end">
+            <span className="truncate drop-shadow-2xl">{displayText}</span>
           </div>
         </motion.div>
 
         {/* Keypad */}
-        <div className="grid grid-cols-4 gap-4 flex-1">
+        <div className="grid grid-cols-4 gap-6 flex-1">
           {/* Row 1 */}
           <motion.button
-            className="bg-gradient-to-br from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white rounded-2xl text-xl font-semibold transition-all duration-200 shadow-xl col-span-2 flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-600/80 to-slate-700/80 hover:from-slate-500/80 hover:to-slate-600/80 text-white rounded-3xl text-xl font-semibold transition-all duration-300 shadow-2xl col-span-2 flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(148, 163, 184, 0.3)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={clearDisplay}
             disabled={loginMutation.isPending}
           >
             AC
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white rounded-2xl text-xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-600/80 to-slate-700/80 hover:from-slate-500/80 hover:to-slate-600/80 text-white rounded-3xl text-xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(148, 163, 184, 0.3)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={deleteLast}
             disabled={loginMutation.isPending}
           >
             ⌫
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-2xl text-3xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255,165,0,0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white rounded-3xl text-3xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/20"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendOperation("/")}
             disabled={loginMutation.isPending}
           >
@@ -176,36 +176,36 @@ export default function CalculatorLogin({ onLoginSuccess }: CalculatorLoginProps
 
           {/* Row 2 */}
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("7")}
             disabled={loginMutation.isPending}
           >
             7
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("8")}
             disabled={loginMutation.isPending}
           >
             8
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("9")}
             disabled={loginMutation.isPending}
           >
             9
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-2xl text-3xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255,165,0,0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white rounded-3xl text-3xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/20"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendOperation("*")}
             disabled={loginMutation.isPending}
           >
@@ -214,36 +214,36 @@ export default function CalculatorLogin({ onLoginSuccess }: CalculatorLoginProps
 
           {/* Row 3 */}
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("4")}
             disabled={loginMutation.isPending}
           >
             4
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("5")}
             disabled={loginMutation.isPending}
           >
             5
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("6")}
             disabled={loginMutation.isPending}
           >
             6
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-2xl text-3xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255,165,0,0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white rounded-3xl text-3xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/20"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendOperation("-")}
             disabled={loginMutation.isPending}
           >
@@ -252,36 +252,36 @@ export default function CalculatorLogin({ onLoginSuccess }: CalculatorLoginProps
 
           {/* Row 4 */}
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("1")}
             disabled={loginMutation.isPending}
           >
             1
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("2")}
             disabled={loginMutation.isPending}
           >
             2
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("3")}
             disabled={loginMutation.isPending}
           >
             3
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-2xl text-3xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255,165,0,0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white rounded-3xl text-3xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/20"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendOperation("+")}
             disabled={loginMutation.isPending}
           >
@@ -290,27 +290,27 @@ export default function CalculatorLogin({ onLoginSuccess }: CalculatorLoginProps
 
           {/* Row 5 */}
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl col-span-2 flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl col-span-2 flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay("0")}
             disabled={loginMutation.isPending}
           >
             0
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white rounded-2xl text-2xl font-semibold transition-all duration-200 shadow-xl flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-slate-700/90 to-slate-800/90 hover:from-slate-600/90 hover:to-slate-700/90 text-white rounded-3xl text-2xl font-semibold transition-all duration-300 shadow-2xl flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/10"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(71, 85, 105, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => appendToDisplay(".")}
             disabled={loginMutation.isPending}
           >
             .
           </motion.button>
           <motion.button
-            className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white rounded-2xl text-3xl font-semibold transition-all duration-200 shadow-xl disabled:opacity-50 flex items-center justify-center"
-            whileHover={{ scale: 1.02, boxShadow: "0 20px 40px rgba(255,165,0,0.3)" }}
-            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white rounded-3xl text-3xl font-semibold transition-all duration-300 shadow-2xl disabled:opacity-50 flex items-center justify-center min-h-[70px] backdrop-blur-sm border border-white/20"
+            whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(16, 185, 129, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
             onClick={calculate}
             disabled={loginMutation.isPending}
           >
