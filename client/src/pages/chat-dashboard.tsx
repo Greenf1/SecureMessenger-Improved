@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, Send, Paperclip, User } from "lucide-react";
+import { LogOut, Send, Paperclip, User, ArrowLeft, Phone, Video, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface ChatDashboardProps {
   onLogout: () => void;
+  onBack?: () => void;
+  targetUserId?: number;
 }
 
 interface Message {
@@ -23,7 +25,7 @@ interface User {
   username: string;
 }
 
-export default function ChatDashboard({ onLogout }: ChatDashboardProps) {
+export default function ChatDashboard({ onLogout, onBack, targetUserId }: ChatDashboardProps) {
   const [messageInput, setMessageInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -34,11 +36,20 @@ export default function ChatDashboard({ onLogout }: ChatDashboardProps) {
     queryKey: ["/api/user"],
   });
 
+  // Get all users to display names
+  const { data: users = [] } = useQuery<User[]>({
+    queryKey: ["/api/users"],
+  });
+
   // Get messages
   const { data: messages = [], isLoading: messagesLoading } = useQuery<Message[]>({
     queryKey: ["/api/messages"],
     refetchInterval: 3000, // Refresh every 3 seconds
   });
+
+  // Get target user info
+  const targetUser = users.find(u => u.id === targetUserId);
+  const chatTitle = targetUser?.username || "Secure Chat";
 
   // Send message mutation
   const sendMessageMutation = useMutation({
@@ -106,24 +117,49 @@ export default function ChatDashboard({ onLogout }: ChatDashboardProps) {
       <div className="bg-green-500 text-white p-4 shadow-md">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
+            {onBack && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={onBack}
+                className="text-white hover:text-gray-200 hover:bg-green-600"
+              >
+                <ArrowLeft className="h-6 w-6" />
+              </Button>
+            )}
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <User className="h-6 w-6 text-green-500" />
+              <span className="text-lg">{targetUser?.avatar || "👤"}</span>
             </div>
             <div>
-              <h1 className="font-semibold text-lg">Secure Chat</h1>
+              <h1 className="font-semibold text-lg">{chatTitle}</h1>
               <p className="text-sm opacity-90">
-                {currentUser ? `Connecté en tant que ${currentUser.username}` : "En ligne"}
+                {targetUser?.status || "En ligne"}
               </p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => logoutMutation.mutate()}
-            className="text-white hover:text-gray-200 hover:bg-green-600"
-          >
-            <LogOut className="h-6 w-6" />
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:text-gray-200 hover:bg-green-600"
+            >
+              <Phone className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:text-gray-200 hover:bg-green-600"
+            >
+              <Video className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:text-gray-200 hover:bg-green-600"
+            >
+              <MoreVertical className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
       </div>
 

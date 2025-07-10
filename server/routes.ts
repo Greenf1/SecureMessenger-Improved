@@ -4,6 +4,13 @@ import { storage } from "./storage";
 import { loginSchema, insertMessageSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Extend Express session type
+declare module 'express-session' {
+  interface SessionData {
+    userId: number;
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Login endpoint
   app.post("/api/login", async (req, res) => {
@@ -19,9 +26,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Store user session (simplified)
-      req.session = req.session || {};
-      (req.session as any).userId = user.id;
+      // Store user session
+      req.session.userId = user.id;
       
       res.json({ 
         success: true, 
@@ -43,7 +49,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get messages endpoint
   app.get("/api/messages", async (req, res) => {
     try {
-      const userId = (req.session as any)?.userId;
+      const userId = req.session.userId;
       if (!userId) {
         return res.status(401).json({ message: "Non authentifié" });
       }
@@ -59,7 +65,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Send message endpoint
   app.post("/api/messages", async (req, res) => {
     try {
-      const userId = (req.session as any)?.userId;
+      const userId = req.session.userId;
       if (!userId) {
         return res.status(401).json({ message: "Non authentifié" });
       }
@@ -84,7 +90,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get current user endpoint
   app.get("/api/user", async (req, res) => {
     try {
-      const userId = (req.session as any)?.userId;
+      const userId = req.session.userId;
       if (!userId) {
         return res.status(401).json({ message: "Non authentifié" });
       }
@@ -104,10 +110,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get all users (contacts)
+  app.get("/api/users", async (req, res) => {
+    try {
+      const userId = req.session.userId;
+      if (!userId) {
+        return res.status(401).json({ message: "Non authentifié" });
+      }
+
+      const users = await storage.getAllUsers();
+      // Filter out current user
+      const otherUsers = users.filter(u => u.id !== userId);
+      res.json(otherUsers);
+    } catch (error) {
+      console.error("Get users error:", error);
+      res.status(500).json({ message: "Erreur serveur" });
+    }
+  });
+
+  // Get calls endpoint
+  app.get("/api/calls", async (req, res) => {
+    try {
+      const userId = req.session.userId;
+      if (!userId) {
+        return res.status(401).json({ message: "Non authentifié" });
+      }
+
+      const calls = await storage.getCalls(userId);
+      res.json(calls);
+    } catch (error) {
+      console.error("Get calls error:", error);
+      res.status(500).json({ message: "Erreur serveur" });
+    }
+  });
+
+  // Create call endpoint
+  app.post("/api/calls", async (req, res) => {
+    try {
+      const userId = req.session.userId;
+      if (!userId) {
+        return res.status(401).json({ message: "Non authentifié" });
+      }
+
+      const { receiverId, type, status, duration } = req.body;
+      const call = await storage.createCall({
+        callerId: userId,
+        receiverId,
+        type,
+        status,
+        duration: duration || 0,
+      });
+
+      res.json(call);
+    } catch (error) {
+      console.error("Create call error:", error);
+      res.status(500).json({ message: "Erreur serveur" });
+    }
+  });
+
   // Logout endpoint
   app.post("/api/logout", (req, res) => {
-    req.session = null;
-    res.json({ success: true });
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Session destruction error:", err);
+      }
+      res.json({ success: true });
+    });
   });
 
   const httpServer = createServer(app);

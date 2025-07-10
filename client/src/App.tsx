@@ -5,7 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import CalculatorLogin from "@/pages/calculator-login";
-import ChatDashboard from "@/pages/chat-dashboard";
+import MainDashboard from "@/pages/main-dashboard";
 import NotFound from "@/pages/not-found";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         {isLoggedIn ? (
-          <ChatDashboard onLogout={handleLogout} />
+          <MainDashboard onLogout={handleLogout} />
         ) : (
           <CalculatorLogin onLoginSuccess={handleLoginSuccess} />
         )}
