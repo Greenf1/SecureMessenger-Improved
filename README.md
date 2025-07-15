@@ -108,11 +108,10 @@ Les contributions sont les bienvenues ! Si vous souhaitez améliorer ce projet, 
 
 ## 📄 Licence
 
-Distribué sous la licence MIT. Voir `LICENSE` pour plus d'informations.
+Distribué sous la licence. Voir pour plus d'informations.
 
 ## 📞 Contact
-
-Votre Nom - votre.email@example.com
+Greenfad.tech
 
 Lien du projet: [https://github.com/Greenf1/SecureMessenger-Improved](https://github.com/Greenf1/SecureMessenger-Improved)
 
